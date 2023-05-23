@@ -16,9 +16,9 @@ fi
 if [ "$DISTRO" = "ubuntu" ]; then
     # Instalar las librerias en Ubuntu
     sudo apt-get update
-    sudo apt-get install -y curl zsh ncdu git htop
+    sudo apt-get install -y curl zsh ncdu git htop screnfetch
 elif [ "$DISTRO" = "fedora" ]; then
     # Instalar las librerias en Fedora
     sudo dnf update
-    sudo dnf install -y curl zsh ncdu git htop
+    sudo dnf install -y curl zsh ncdu git htop screenfetch
 fi
