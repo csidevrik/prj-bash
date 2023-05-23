@@ -1,5 +1,10 @@
+#!/bin/sh
+
+# Obtener el nombre de usuario actual
+usuario=$(whoami)
+
 # Directorio base
-directorio_base="/home/$USER"
+directorio_base="/home/$usuario"
 
 # Crear directorios
 directorios=(
