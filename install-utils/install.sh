@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Verificar la distribución actual
-if [[ -f /etc/lsb-release ]]; then
+# Verificar la distribucion actual
+if `[[ -f /etc/lsb-release ]]`; then
     # Distribución basada en Ubuntu
     DISTRO="ubuntu"
-elif [[ -f /etc/fedora-release ]]; then
+elif `[[ -f /etc/fedora-release ]]`; then
     # Distribución basada en Fedora
     DISTRO="fedora"
 else
@@ -12,13 +12,13 @@ else
     exit 1
 fi
 
-# Instalar las librerías según la distribución
-if [[ $DISTRO == "ubuntu" ]]; then
-    # Instalar las librerías en Ubuntu
+# Instalar las librerias según la distribucion
+if `[[ $DISTRO == "ubuntu" ]]`; then
+    # Instalar las librerias en Ubuntu
     sudo apt-get update
     sudo apt-get install -y curl zsh ncdu git 
-elif [[ $DISTRO == "fedora" ]]; then
-    # Instalar las librerías en Fedora
+elif `[[ $DISTRO == "fedora" ]]`; then
+    # Instalar las librerias en Fedora
     sudo dnf update
     sudo dnf install -y curl zsh ncdu git
 fi
