@@ -2,10 +2,10 @@
 
 # Verificar la distribucion actual
 if `[[ -f /etc/lsb-release ]]`; then
-    # Distribución basada en Ubuntu
+    # Distribucion basada en Ubuntu
     DISTRO="ubuntu"
 elif `[[ -f /etc/fedora-release ]]`; then
-    # Distribución basada en Fedora
+    # Distribucion basada en Fedora
     DISTRO="fedora"
 else
     echo "No se pudo determinar la distribución actual"
