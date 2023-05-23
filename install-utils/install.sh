@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Verificar la distribucion actual
 if `[[ -f /etc/lsb-release ]]`; then
