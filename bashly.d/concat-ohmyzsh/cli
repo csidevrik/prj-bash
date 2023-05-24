@@ -148,7 +148,7 @@ cli_url_command() {
   #!/bin/bash
 
   # Obtener el contenido para string2
-    string2="${args['string2']}"
+  string2="${args['string2']}"
 
   # Definir los strings
   string1='curl -fsSL '
