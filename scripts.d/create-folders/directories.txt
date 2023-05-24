@@ -1,0 +1,8 @@
+volumes/mariadb/data
+volumes/mariadb/logs
+volumes/mariadb1/data
+volumes/mariadb1/logs
+volumes/mongodb/data
+volumes/mongodb/logs
+volumes/postgres/data
+volumes/postgres/logs

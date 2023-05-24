@@ -1,0 +1,10 @@
+name: cli
+help: Un script de ejemplo generado con bashly
+
+commands:
+  - name: url
+    help: pide el sitio url para generar el mensaje
+    args:
+      - name: string2
+        help: este es el sitio url que consigues para el script
+        required: true

@@ -1,0 +1,29 @@
+name: cli
+help: Sample application
+version: 0.1.0
+
+environment_variables:
+- name: api_key
+  help: Set your API key
+
+commands:
+# ///////////////////////////////////////////////////
+- name: geturl
+  alias: g
+  help: form the url to get site of script sh
+
+  args:
+  - name: url
+    required: true
+    help: URL string to concatenate
+  
+  examples:
+  - cli geturl https://bitbucket.org/carlitoxs09/prj-bash/raw/scripts.d/create-folders/createvols.sh
+
+  environment_variables:
+  - name: string1
+    help: First string
+    default: '[sh -c "$(curl -fsSL ]'
+  - name: string3
+    help: Third string
+    default: '[])"]'
