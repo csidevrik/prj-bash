@@ -6,3 +6,7 @@ volumes/mongodb/data
 volumes/mongodb/logs
 volumes/postgres/data
 volumes/postgres/logs
+dev/remote
+dev/github
+dev/gitlab
+dev/local
