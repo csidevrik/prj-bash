@@ -1,1 +1,1 @@
-sh -c "$(curl -fsSL https://bitbucket.org/carlitoxs09/prj-bash/raw/ee4a5e9048764b61ecb442d484edea61a9bc55b8/scripts.d/create-folders/createvols.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh?token=GHSAT0AAAAAACC7LPRCN3UKBTCNHT7RTDK2ZDOA77A)"

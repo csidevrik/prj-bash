@@ -1,0 +1,1 @@
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh)"
