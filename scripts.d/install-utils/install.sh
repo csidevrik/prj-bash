@@ -16,9 +16,9 @@ fi
 if [ "$DISTRO" = "ubuntu" ]; then
     # Instalar las librerias en Ubuntu
     sudo apt-get update
-    sudo apt-get install -y curl zsh ncdu git htop screenfetch
+    sudo apt-get install -y curl zsh ncdu git htop screenfetch openssh-server openssl
 elif [ "$DISTRO" = "fedora" ]; then
     # Instalar las librerias en Fedora
     sudo dnf update
-    sudo dnf install -y curl zsh ncdu git htop screenfetch
+    sudo dnf install -y curl zsh ncdu git htop screenfetch openssh-server openssl
 fi
