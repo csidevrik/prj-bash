@@ -7,8 +7,14 @@ typeset -A directory_names
 BASEDIR="/home/adminos/dev/remote"
 # Obtener la lista de carpetas existentes
 EXISTING_FOLDERS=($BASEDIR/*(/:t))
+
+# Establecer los prefijos nuevos y los actuales
 oldprefix="prj-"
 newprefix="WD"
+
+# Establecer los comentarios de inicio y fin
+comment_start="# Sta Alias for repos"
+comment_end="# End Alias for repos"
 
 
 
@@ -52,17 +58,47 @@ add_prefix() {
   local prefix=$2
   local result="${prefix}${name}"
 #   local result="${prefix}${name#"$prefix"}"
-
   echo "$result"
 }
+
+# Función para agregar un comentario al archivo ~/.zshrc
+add_comment() {
+    local comment=$1
+    echo "$comment" >> ~/.zshrc
+}
+
+# Función para verificar y borrar las líneas entre los comentarios de inicio y fin
+check_and_clear_lines() {
+    local start_line
+    local end_line
+    # Verificar si existen los comentarios de inicio y fin
+    if grep -q "^$comment_start" ~/.zshrc && grep -q "^$comment_end" ~/.zshrc; then
+        print_white "ha encontrado comentario inicial y final"
+        # Obtener el número de línea del comentario de inicio
+        start_line=$(grep -n "^$comment_start" ~/.zshrc | cut -d ":" -f 1)
+
+        # Obtener el número de línea del comentario de fin
+        end_line=$(grep -n "^$comment_end" ~/.zshrc | cut -d ":" -f 1)
+
+        # Borrar las líneas entre los comentarios de inicio y fin
+        sed -i "${start_line},${end_line}d" ~/.zshrc
+    fi
+}
+
 
 # -----------------------------------------------------------------------------------------------
 # Función principal
 # -----------------------------------------------------------------------------------------------
 main() {
+
     # Mensaje de inicio en color púrpura
-    print_white "¡Bienvenido al script de configuración!"
-    
+    print_yellow "¡Bienvenido al script de configuración!"
+
+    # Verificar la existencia de las lineas de inicio y final 
+    check_and_clear_lines
+
+    add_comment "$comment_start"
+
     for folder in $EXISTING_FOLDERS; do
         # Limpiar el nombre del directoro y obtener el nombre
         clean_name=$(del_prefix "$folder" "$oldprefix")
@@ -81,6 +117,9 @@ main() {
         # Mostrar en prompt el resultado de crear el alias para usar ese directorio
         echo "alias open.${directory_name}=\"cd \${${directory_name}}\"" >> ~/.zshrc
     done
+
+    add_comment "$comment_end"
+
 
     # Resto del código...
 }
