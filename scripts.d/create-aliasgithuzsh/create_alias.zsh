@@ -3,8 +3,10 @@
 # ========================================================================
 typeset -A directory_names
 
+# Folder repo
+gitRepoFolder="github"
 # Directorio base
-BASEDIR="/home/adminos/dev/github"
+BASEDIR="/home/adminos/dev/$gitRepoFolder"
 # Obtener la lista de carpetas existentes
 EXISTING_FOLDERS=($BASEDIR/*(/:t))
 
@@ -13,8 +15,8 @@ oldprefix="prj-"
 newprefix="WD"
 
 # Establecer los comentarios de inicio y fin
-comment_start="# Sta Alias for repos"
-comment_end="# End Alias for repos"
+comment_start="# Sta Alias for $gitRepoFolder repos"
+comment_end="# End Alias for $gitRepoFolder repos"
 
 
 
