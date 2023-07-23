@@ -28,5 +28,3 @@ elif [ "$DISTRO" = "fedora" ]; then
         sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-37.noarch.rpm
         sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-37.noarch.rpm
 fi
-
-function 
