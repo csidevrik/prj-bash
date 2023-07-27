@@ -25,3 +25,5 @@ Para utilizar este script inserta lo siguiente en la terminal.
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh)"
 ```
+
+jjjjj
