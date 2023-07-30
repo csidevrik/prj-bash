@@ -6,6 +6,8 @@ volumes/mongodb/data
 volumes/mongodb/logs
 volumes/postgres/data
 volumes/postgres/logs
+volumes/nginx/data
+volumes/nginx/logs
 dev/remote
 dev/github
 dev/gitlab
