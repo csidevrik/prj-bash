@@ -15,3 +15,15 @@ On this directory we have scripts low complexity, only build with bash or sh env
 
 For visit that i building you have next link
 - [Script directory](https://github.com/carlossiguam/prj-bash/tree/main/scripts.d)
+
+
+### Install utils
+De momento he creado un script que permite la instalacion de algunas librerias utiles tanto en fedora como en ubuntu. 
+
+Para utilizar este script inserta lo siguiente en la terminal.
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh)"
+```
+
+jjjjj
