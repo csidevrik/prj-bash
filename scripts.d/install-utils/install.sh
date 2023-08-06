@@ -10,8 +10,9 @@ FMT_BOLD=$(tput bold)
 FMT_RED=$(tput setaf 1)
 FMT_GREEN=$(tput setaf 2)
 FMT_YELLOW=$(tput setaf 3)
-FMT_BLUE=$(tput setaf 34)
-FMT_PURPLE=$(tput setaf 35)
+FMT_PURPLE=$(tput setaf 5)
+FMT_BLUE=$(tput setaf 4)
+
 
 
 # Función para imprimir mensajes de éxito
@@ -36,14 +37,16 @@ install_rpmfusion_repos() {
 
 main(){
     # Verificar la distribucion actual
-    if [ -f /etc/lsb-release ]; then
-    # Distribucion basada en Ubuntu
+    if [ -f /etc/lsb-release ]; then {
+        # Distribucion basada en Ubuntu
         DISTRO="ubuntu"
         printf "${FMT_RESET}${FMT_PURPLE}${FMT_BOLD}Estas en una distro de Ubuntu${FMT_RESET}\n"
-    elif [ -f /etc/fedora-release ]; then
-    # Distribucion basada en Fedora
+    }
+    elif [ -f /etc/fedora-release ]; then {
+        # Distribucion basada en Fedora
         DISTRO="fedora"
-        printf "${FMT_RESET}${FMT_BLUE}${FMT_BOLD}Estas en una distro de Ubuntu${FMT_RESET}\n"
+        printf "${FMT_BLUE}${FMT_BOLD}Estas en una distro de Fedora${FMT_RESET}\n"
+    }
     else
         printf "${FMT_RESET}${FMT_RED}${FMT_BOLD}No se pudo determinar la distribución actual${FMT_RESET}\n"
         exit 1
