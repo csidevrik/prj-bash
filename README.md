@@ -26,4 +26,8 @@ Para utilizar este script inserta lo siguiente en la terminal.
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh)"
 ```
 
-jjjjj
+Tambien adjunto el script para ohmyzsh, es que sino tengo que estar ingresando al sitio de oh my zsh
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
