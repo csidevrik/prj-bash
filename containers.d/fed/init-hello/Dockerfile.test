@@ -1,0 +1,33 @@
+# This is a sample file for EMOV EP
+
+# Set base image fedora why we love fedora
+FROM fedora:37 as colmenak
+
+
+# Label to identify the creator 
+LABEL maintainer='carlos.sigua@gmail.com'
+LABEL version='1.0'
+LABEL description='Mi primera imagen de fedora'
+# Definiendo ARGUMENTOS DE CONSTRUCCION
+ARG USERNADMIN=humancero
+ARG PASSNADMIN=z0phermero.$
+
+
+# Actualizamos el sistema y usamos los argumentos anteriores
+
+RUN dnf update -y && dnf install -y sudo \
+    && useradd -m -s /bin/bash ${USERNADMIN} \
+    && echo "${USERNADMIN}:${PASSNADMIN}" | chpasswd \
+    && usermod -aG wheel ${USERNADMIN}
+
+RUN dnf install -y zsh git ncdu htop screenfetch openssh-server openssl sqlite
+
+# Cambiamos al usuario por defecto
+USER ${USERNADMIN}
+
+# Se define el directorio de trabajo
+ENV PATHUSER /home/${USERNADMIN}
+WORKDIR ${PATHUSER}
+
+#Ejecuta un comando cuando se inicie el contenedor
+CMD [ "bash" ]
