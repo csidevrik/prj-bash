@@ -4,6 +4,18 @@
 packages_ubuntu=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
 packages_fedora=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
 
+package_neovim="neovim"
+package_curl="curl"
+package_git="git"
+package_ncdu="ncdu"
+package_zsh="zsh"
+package_htop="htop"
+package_screenfetch="screenfetch"
+package_openssh="openssh-server"
+package_openssl="openssl"
+package_sqlite="sqlite"
+
+
 # Colores de formato
 FMT_RESET=$(tput sgr0)
 FMT_BOLD=$(tput bold)
@@ -55,11 +67,18 @@ main(){
     if [ "$DISTRO" = "ubuntu" ]; then
         # Instalar las librerias en Ubuntu
         sudo apt-get update
-        sudo apt-get install -y "${packages_ubuntu[@]}"
+        # sudo apt-get install -y "${packages_ubuntu[@]}"
+        sudo apt install -y $package_curl $package_git $package_htop $package_ncdu $package_neovim \
+                            $package_openssh $package_openssl $package_screenfetch $package_sqlite \
+                            $package_zsh 
     elif [ "$DISTRO" = "fedora" ]; then
         # Instalar las librerias en Fedora
         sudo dnf update
-        sudo dnf install -y "${packages_fedora[@]}"
+        # sudo dnf install -y "${packages_fedora[@]}"
+        sudo dnf install -y $package_curl $package_git $package_htop $package_ncdu $package_neovim \
+                            $package_openssh $package_openssl $package_screenfetch $package_sqlite \
+                            $package_zsh 
+                            
         # Verificar la versión de Fedora
         VERSION=$(grep -oP '(?<=Fedora release )[0-9]+' /etc/fedora-release)
         if [ "$VERSION" = "37" ]; then
