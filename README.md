@@ -8,13 +8,13 @@ En esta carpeta tratamos de mejorar algunos scripts para nuestras necesidades ge
 - [Bashly framework](https://bashly.dannyb.co/)
 
 Para visitar lo que estoy construyendo tienes el siguiente link
-- [bashly directory](https://github.com/carlossiguam/prj-bash/tree/main/bashly.d)
+- [bashly directory](https://github.com/csidevrik/prj-bash/tree/main/bashly.d)
 
 ## SCRIPTS DIRECTORY
 On this directory we have scripts low complexity, only build with bash or sh enviroment, obviously we will improve it over time.
 
 For visit that i building you have next link
-- [Script directory](https://github.com/carlossiguam/prj-bash/tree/main/scripts.d)
+- [Script directory](https://github.com/csidevrik/prj-bash/tree/main/scripts.d)
 
 
 ### Install utils
@@ -23,7 +23,7 @@ De momento he creado un script que permite la instalacion de algunas librerias u
 Para utilizar este script inserta lo siguiente en la terminal.
 
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlossiguam/prj-bash/main/scripts.d/install-utils/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/main/scripts.d/install-utils/install.sh)"
 ```
 
 Tambien adjunto el script para ohmyzsh, es que sino tengo que estar ingresando al sitio de oh my zsh
