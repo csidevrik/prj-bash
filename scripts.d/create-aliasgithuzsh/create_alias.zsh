@@ -22,15 +22,16 @@ comment_end="# End Alias for $GITFOLDER repos"
 
 # Functions utils
 # ========================================================================
-# Función para imprimir un mensaje en color púrpura
-print_purple() {
-  local message=$1
-  echo -e "\e[35m$message\e[0m"
-}
+# -- FUNCIONES DE COLORES ---
 print_color() {
   local message=$1
   local color=$2
   echo -e "\e[${color}m${message}\e[0m"
+}
+# Función para imprimir un mensaje en color púrpura
+print_purple() {
+  local message=$1
+  echo -e "\e[35m$message\e[0m"
 }
 # Función para imprimir un mensaje en color yellow
 print_yellow() {
@@ -47,6 +48,8 @@ print_white() {
   local message=$1
   echo -e "\e[37m$message\e[0m"
 }
+
+# -- FUNCIONES ESPECIFICAS ---
 # Función para limpiar el nombre de la carpeta
 del_prefix() {
   local folder_name=$1
@@ -69,13 +72,14 @@ add_comment() {
     echo "$comment" >> ~/.zshrc
 }
 
-# Función para verificar y borrar las líneas entre los comentarios de inicio y fin
+# Función para verificar y borrar las líneas entre los comentarios de inicio y fin 
+# dentro del archivo .zshrc del perfil del usuario de linux
 check_and_clear_lines() {
     local start_line
     local end_line
     # Verificar si existen los comentarios de inicio y fin
     if grep -q "^$comment_start" ~/.zshrc && grep -q "^$comment_end" ~/.zshrc; then
-        print_white "ha encontrado comentario inicial y final"
+        # print_white "ha encontrado comentario inicial y final"
         # Obtener el número de línea del comentario de inicio
         start_line=$(grep -n "^$comment_start" ~/.zshrc | cut -d ":" -f 1)
 
@@ -94,7 +98,7 @@ check_and_clear_lines() {
 main() {
 
     # Mensaje de inicio en color púrpura
-    print_yellow "¡Bienvenido al script de configuración!"
+    print_yellow "¡Wellcome to configuration script!"
 
     # Verificar la existencia de las lineas de inicio y final 
     check_and_clear_lines
