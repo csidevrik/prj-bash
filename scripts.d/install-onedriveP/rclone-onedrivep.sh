@@ -1,0 +1,1 @@
+rclone --vfs-cache-mode writes mount "OneDriveP": ~/OneDriveP & notify-send "OneDrivePersonal" "Microsoft OneDrive successfully mounted."
