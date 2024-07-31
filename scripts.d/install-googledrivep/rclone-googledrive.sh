@@ -1,0 +1,1 @@
+rclone --vfs-cache-mode writes mount "gdrive": ~/GoogleDrive & notify-send "Google Drive Personal" "Googledrive successfully mounted."
