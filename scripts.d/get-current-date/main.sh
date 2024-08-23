@@ -40,10 +40,10 @@ function Get-Current-Date() {
 Get-Current-Date -JustDate
 
 # Para obtener solo la hora:
-# Get-Current-Date -JustHour
+Get-Current-Date -JustHour
 
 # Para obtener la fecha y hora (con mes y día):
-# Get-Current-Date -DayAndHour
+Get-Current-Date -DayAndHour
 
 # Para obtener la fecha completa (default):
-# Get-Current-Date
+Get-Current-Date
