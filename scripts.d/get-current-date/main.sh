@@ -28,7 +28,8 @@ case "$1" in
         resultado="${months[$month]}${day}_${hour}h${minute}m${second}s"
         ;;
     *)
-        resultado="${day}${months[$month]}_${day}${year}_${hour}${minute}${second}"
+        # resultado="${day}${months[$month]}_${day}${year}_${hour}${minute}${second}"
+        resultado="${day}${months[$monthNumber]}_${day}${monthNumber}${year}_${hour}${minute}${second}"
         ;;
 esac
 
