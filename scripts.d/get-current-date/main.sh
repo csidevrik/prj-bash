@@ -16,6 +16,10 @@ hour=$(date +'%H')
 minute=$(date +'%M')
 second=$(date +'%S')
 
+# El mes debe ser tratado como un número entero para acceder correctamente al array
+monthNumber=$((10#$month)) # El 10# fuerza la interpretación de month como base 10
+
+
 # Formato para diferentes opciones
 case "$1" in
     --justDate)
