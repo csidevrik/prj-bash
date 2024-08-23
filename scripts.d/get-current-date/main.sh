@@ -26,7 +26,7 @@ monthNumber=$(echo $month | sed 's/^0*//') # Elimina cualquier 0 inicial
 # Formato para diferentes opciones
 case "$1" in
     --justDate)
-        resultado="${day}${months[$monthNumber]}_${day}${year}"
+        resultado="${monthNumber}${months[$monthNumber]}_${day}${year}"
         ;;
     --justHour)
         resultado="${hour}h${minute}m${second}s"
@@ -35,7 +35,7 @@ case "$1" in
         resultado="${months[$monthNumber]}${day}_${hour}h${minute}m${second}s"
         ;;
     *)
-        resultado="${day}${months[$monthNumber]}_${day}${year}_${hour}${minute}${second}"
+        resultado="${monthNumber}${months[$monthNumber]}_${day}${year}_${hour}${minute}${second}"
         ;;
 esac
 
