@@ -17,23 +17,25 @@ minute=$(date +'%M')
 second=$(date +'%S')
 
 # El mes debe ser tratado como un número entero para acceder correctamente al array
-monthNumber=$((10#$month)) # El 10# fuerza la interpretación de month como base 10
+# monthNumber=$((10#$month)) # El 10# fuerza la interpretación de month como base 10
 
+
+# Convertir el mes a número entero para acceder correctamente al array
+monthNumber=$(echo $month | sed 's/^0*//') # Elimina cualquier 0 inicial
 
 # Formato para diferentes opciones
 case "$1" in
     --justDate)
-        resultado="${day}${months[$month]}_${day}${year}"
+        resultado="${day}${months[$monthNumber]}_${day}${year}"
         ;;
     --justHour)
         resultado="${hour}h${minute}m${second}s"
         ;;
     --dayAndHour)
-        resultado="${months[$month]}${day}_${hour}h${minute}m${second}s"
+        resultado="${months[$monthNumber]}${day}_${hour}h${minute}m${second}s"
         ;;
     *)
-        # resultado="${day}${months[$month]}_${day}${year}_${hour}${minute}${second}"
-        resultado="${day}${months[$monthNumber]}_${day}${monthNumber}${year}_${hour}${minute}${second}"
+        resultado="${day}${months[$monthNumber]}_${day}${year}_${hour}${minute}${second}"
         ;;
 esac
 
