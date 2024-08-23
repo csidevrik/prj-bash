@@ -1,43 +1,49 @@
 #!/bin/bash
 
-# Mapa de meses en español
-declare -A months=(
-    [1]="ENE" [2]="FEB" [3]="MAR" [4]="ABR"
-    [5]="MAY" [6]="JUN" [7]="JUL" [8]="AGO"
-    [9]="SEP" [10]="OCT" [11]="NOV" [12]="DIC"
-)
+function Get-Current-Date() {
+    # Obtiene la fecha y hora actual
+    current_date=$(date '+%Y %m %d %H %M %S')
+    year=$(echo $current_date | awk '{print $1}')
+    month=$(echo $current_date | awk '{print $2}')
+    day=$(echo $current_date | awk '{print $3}')
+    hour=$(echo $current_date | awk '{print $4}')
+    minute=$(echo $current_date | awk '{print $5}')
+    second=$(echo $current_date | awk '{print $6}')
 
-# Obtener la fecha y hora actual
-actualDate=$(date +'%Y-%m-%d %H:%M:%S')
-day=$(date +'%d')
-month=$(date +'%m')
-year=$(date +'%Y')
-hour=$(date +'%H')
-minute=$(date +'%M')
-second=$(date +'%S')
+    # Mapa de months en español
+    months=("ENE" "FEB" "MAR" "ABR" "MAY" "JUN" "JUL" "AGO" "SEP" "OCT" "NOV" "DIC")
 
-# El mes debe ser tratado como un número entero para acceder correctamente al array
-monthNumberB10=$((10#$month)) # El 10# fuerza la interpretación de month como base 10
+    case $1 in
+        -JustDate)
+            # Formato para solo la fecha
+            result=$(printf "%04d%02d%s-%02d_" $year $month ${months[$((month-1))]} $day)
+            ;;
+        -JustHour)
+            # Formato para solo la hora
+            result=$(printf "%02dh%02dm%02ds" $hour $minute $second)
+            ;;
+        -DayAndHour)
+            # Formato para fecha y hora
+            result=$(printf "%04d%02d%02d-%02dh%02dm%02ds" $year $month $day $hour $minute $second)
+            ;;
+        *)
+            # Formato completo de fecha y hora (default)
+            result=$(printf "%04d%02d%02d%02d%02d%02d" $year $month $day $hour $minute $second)
+            ;;
+    esac
 
+    echo $result
+}
 
-# Convertir el mes a número entero para acceder correctamente al array
-monthNumber=$(echo $month | sed 's/^0*//') # Elimina cualquier 0 inicial
+# Ejemplos de uso:
+# Para obtener solo la fecha:
+Get-Current-Date -JustDate
 
-# Formato para diferentes opciones
-case "$1" in
-    --justDate)
-        resultado="${monthNumberB10}${months[$monthNumber]}_${day}${year}"
-        ;;
-    --justHour)
-        resultado="${hour}h${minute}m${second}s"
-        ;;
-    --dayAndHour)
-        resultado="${months[$monthNumber]}${day}_${hour}h${minute}m${second}s"
-        ;;
-    *)
-        resultado="${monthNumberB10}${months[$monthNumber]}_${day}${year}_${hour}${minute}${second}"
-        ;;
-esac
+# Para obtener solo la hora:
+# Get-Current-Date -JustHour
 
-# Mostrar el resultado
-echo "$resultado"
+# Para obtener la fecha y hora (con mes y día):
+# Get-Current-Date -DayAndHour
+
+# Para obtener la fecha completa (default):
+# Get-Current-Date
