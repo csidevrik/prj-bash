@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount OneDrive with rclone at startup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment="USER_NAME=$USER"
+ExecStart=/usr/local/bin/rclone-onedriveP
+Restart=on-failure
+RemainAfterExit=true
+User=%USER_NAME%
+
+[Install]
+WantedBy=default.target
