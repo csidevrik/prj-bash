@@ -8,3 +8,5 @@ commands:
       - name: string2
         help: este es el sitio url que consigues para el script
         required: true
+    completions:
+      - <url>

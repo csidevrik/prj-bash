@@ -1,0 +1,44 @@
+name: myapp
+help: "A sample cli application with autocompletion"
+version: 0.1.0
+
+# environment_variables:
+# - name: api_key
+#   help: Set your API key
+
+commands:
+  - name: greet
+    alias: g
+    help: "Greet the user gil"
+    args:
+    - name: name
+      help: "Name of the person to greet"
+    flags:
+      - long: --shout
+        help: "Make the greeting uppercase"
+    completions:
+      - <name>
+
+  # environment_variables:
+  # - name: default_target_location
+  #   help: Set the default location to download to
+
+  - name: calculate
+    alias: c
+    help: "Perform a calculation"
+    args:
+      - name: operation
+        help: "Operation to perform (add, substract)"
+        required: true
+      - name: a
+        help: "first number"
+        required: true
+      - name: b
+        help: "second number"
+        required: true
+    flags:
+      - long: --verbose
+        help: "output more details"
+  - name: help
+    help: "Show help about commands"
+    alias: h
