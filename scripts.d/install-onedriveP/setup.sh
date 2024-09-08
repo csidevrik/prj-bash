@@ -19,6 +19,7 @@ LOG_PATH_RCLONE_ONEDRIVE="/var/log/$NAME_LOG_RCLONE_ONEDRIVE"
 
 USER_NAME="$USER"
 SYSTEMD_USER="$USER"
+SYSTEMD_NAME_SERVICE="rclone-${NAME_DRIVE_RCLONE}"
 
 
 pack_neovim="neovim"
@@ -71,7 +72,7 @@ install_rpmfusion_repos() {
 create_script_onedrive(){
     FILE_PATH="$1"
     if [ ! -f "$FILE_PATH" ]; then
-        printf "${FMT_BLUE}Creando el directorio %s ya que no existe.${NC}\n" "$FILE_PATH"
+        printf "${FMT_BLUE}Creando el script %s ya que no existe.${NC}\n" "$FILE_PATH"
         sudo bash -c "cat > $FILE_PATH" << EOF
 #!/bin/bash
 LOGFILE=${LOG_PATH_RCLONE_ONEDRIVE}
@@ -86,6 +87,32 @@ EOF
         sudo chmod +x "$FILE_PATH"
     else
         printf "${FMT_BLUE}El script ya existe ${NC}\n" "$FILE_PATH"
+    fi
+}
+
+create_service_onedriveP(){
+    FILE_SERVICE="$1"
+    if [ ! -f "$FILE_SERVICE" ]; then
+         printf "${FMT_BLUE}Creando el servicio %s ya que no existe.${NC}\n" "$FILE_SERVICE"
+         sudo bash -c "cat > $FILE_SERVICE" << EOF
+[Unit]
+Description=Mount ${NAME_DRIVE_RCLONE} with rclone at startup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+#Environment="USER_NAME=${USER}"
+ExecStart=/usr/local/bin/${FILE_SERVICE}
+Restart=on-failure
+RemainAfterExit=true
+User=${USER}
+
+[Install]
+WantedBy=default.target
+EOF
+    else
+        printf "${FMT_BLUE}El servicio ya existe ${NC}\n" "$FILE_PATH"
     fi
 }
 
