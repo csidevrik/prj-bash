@@ -5,17 +5,17 @@ packages_ubuntu=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openss
 packages_fedora=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
 
 NAME_DRIVE_RCLONE=OneDriveP
-NAME_DRIVE_FOLDER=OneDrivePAS
-MOUNT_PATH_ONEDRIVEP="$HOME/$NAME_DRIVE_FOLDER"
+NAME_DRIVE_FOLDER=OneDriveP
+MOUNT_PATH_DRIVE="$HOME/$NAME_DRIVE_FOLDER"
 
-NAME_SCRIPT_ONEDRIVE=rc-onedrivep
-SCRIPT_PATH_ONEDRIVE="/usr/local/bin/$NAME_SCRIPT_ONEDRIVE"
+NAME_SCRIPT_DRIVE="rc-$NAME_DRIVE_RCLONE"
+SCRIPT_PATH_DRIVE="/usr/local/bin/$NAME_SCRIPT_DRIVE"
 
-NAME_SERVICE_RCLONE_ONEDRIVE="$NAME_SCRIPT_ONEDRIVE.service"
-SERVICE_PATH_RCLONE_ONEDRIVE="/etc/systemd/system/$NAME_SERVICE_RCLONE_ONEDRIVE"
+NAME_SERVICE_RCLONE_DRIVE="$NAME_SCRIPT_DRIVE.service"
+SERVICE_PATH_RCLONE_DRIVE="/etc/systemd/system/$NAME_SERVICE_RCLONE_DRIVE"
 
-NAME_LOG_RCLONE_ONEDRIVE="$NAME_SCRIPT_ONEDRIVE.log"
-LOG_PATH_RCLONE_ONEDRIVE="/var/log/$NAME_LOG_RCLONE_ONEDRIVE"
+NAME_LOG_RCLONE_DRIVE="$NAME_SCRIPT_DRIVE.log"
+NAME_LOG_RCLONE_DRIVE="/var/log/$NAME_LOG_RCLONE_DRIVE"
 
 USER_NAME="$USER"
 SYSTEMD_USER="$USER"
@@ -69,19 +69,19 @@ install_rpmfusion_repos() {
 
 # Función para verificar si un folder existe o no en linux leyendo el primer parametro pasado, por el momento 
 # esta funcion usa las variables globales ya haremos una especifica para leer todos los argumentos.
-create_script_onedrive(){
+create_script_drive(){
     FILE_PATH="$1"
     if [ ! -f "$FILE_PATH" ]; then
         printf "${FMT_BLUE}Creando el script %s ya que no existe.${NC}\n" "$FILE_PATH"
         sudo bash -c "cat > $FILE_PATH" << EOF
 #!/bin/bash
-LOGFILE=${LOG_PATH_RCLONE_ONEDRIVE}
-/usr/bin/rclone --vfs-cache-mode writes mount "${NAME_DRIVE_RCLONE}": ~/${NAME_DRIVE_FOLDER} &> ${LOG_PATH_RCLONE_ONEDRIVE} &
+LOGFILE=${NAME_LOG_RCLONE_DRIVE}
+/usr/bin/rclone --vfs-cache-mode writes mount "${NAME_DRIVE_RCLONE}": ~/${NAME_DRIVE_FOLDER} &> ${NAME_LOG_RCLONE_DRIVE} &
 if [ \$? -eq 0 ]; then
     /usr/bin/notify-send "Microsoft OneDrive" "Microsoft OneDrive successfully mounted."
-    printf "${FMT_GREEN}Mounted successfully" >> "${LOG_PATH_RCLONE_ONEDRIVE}"
+    printf "${FMT_GREEN}Mounted successfully" >> "${NAME_LOG_RCLONE_DRIVE}"
 else
-    printf "${FMT_RED}Failed to mount OneDrive" >> "${LOG_PATH_RCLONE_ONEDRIVE}"
+    printf "${FMT_RED}Failed to mount OneDrive" >> "${NAME_LOG_RCLONE_DRIVE}"
 fi
 EOF
         sudo chmod +x "$FILE_PATH"
@@ -90,7 +90,7 @@ EOF
     fi
 }
 
-create_service_onedriveP(){
+create_service_drive(){
     FILE_SERVICE="$1"
     if [ ! -f "$FILE_SERVICE" ]; then
          printf "${FMT_BLUE}Creando el servicio %s ya que no existe.${NC}\n" "$FILE_SERVICE"
@@ -103,7 +103,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 #Environment="USER_NAME=${USER}"
-ExecStart=/usr/local/bin/${FILE_SERVICE}
+ExecStart=/usr/local/bin/${SCRIPT_PATH_DRIVE}
 Restart=on-failure
 RemainAfterExit=true
 User=${USER}
@@ -112,17 +112,28 @@ User=${USER}
 WantedBy=default.target
 EOF
     else
-        printf "${FMT_BLUE}El servicio ya existe ${NC}\n" "$FILE_PATH"
+        printf "${FMT_BLUE}El servicio ya existe ${NC}\n" "$FILE_SERVICE"
     fi
 }
 
 # Función para eliminar el script de OneDrive
-delete_script_onedrive(){
-    if [ -f "$SCRIPT_PATH_ONEDRIVE" ]; then
-        sudo rm -f "$SCRIPT_PATH_ONEDRIVE"
-        printf "${FMT_GREEN}Script eliminado: %s${NC}\n" "$SCRIPT_PATH_ONEDRIVE"
+delete_service_drive(){
+    if [ -f "$SERVICE_PATH_RCLONE_DRIVE" ]; then
+        sudo rm -f "$SERVICE_PATH_RCLONE_DRIVE"
+        printf "${FMT_GREEN}Script eliminado: %s${NC}\n" "$SERVICE_PATH_RCLONE_DRIVE"
     else
-        printf "${FMT_RED}El script no existe: %s${NC}\n" "$SCRIPT_PATH_ONEDRIVE"
+        printf "${FMT_RED}El script no existe: %s${NC}\n" "$SERVICE_PATH_RCLONE_DRIVE"
+    fi
+}
+
+
+# Función para eliminar el script de OneDrive
+delete_script_drive(){
+    if [ -f "$SCRIPT_PATH_DRIVE" ]; then
+        sudo rm -f "$SCRIPT_PATH_DRIVE"
+        printf "${FMT_GREEN}Script eliminado: %s${NC}\n" "$SCRIPT_PATH_DRIVE"
+    else
+        printf "${FMT_RED}El script no existe: %s${NC}\n" "$SCRIPT_PATH_DRIVE"
     fi
 }
 
@@ -146,11 +157,11 @@ verify_folder_drive(){
 
 # Función para eliminar el directorio de montaje
 delete_folder_drive(){
-    if [ -d "$MOUNT_PATH_ONEDRIVEP" ]; then
-        sudo rm -rf "$MOUNT_PATH_ONEDRIVEP"
-        printf "${FMT_GREEN}Directorio eliminado: %s${NC}\n" "$MOUNT_PATH_ONEDRIVEP"
+    if [ -d "$MOUNT_PATH_DRIVE" ]; then
+        sudo rm -rf "$MOUNT_PATH_DRIVE"
+        printf "${FMT_GREEN}Directorio eliminado: %s${NC}\n" "$MOUNT_PATH_DRIVE"
     else
-        printf "${FMT_RED}El directorio no existe: %s${NC}\n" "$MOUNT_PATH_ONEDRIVEP"
+        printf "${FMT_RED}El directorio no existe: %s${NC}\n" "$MOUNT_PATH_DRIVE"
     fi
 }
 
@@ -159,12 +170,15 @@ delete_folder_drive(){
 # ==================================================================================================
 main(){
 
-    verify_folder_drive     $MOUNT_PATH_ONEDRIVEP
-    create_script_onedrive  $SCRIPT_PATH_ONEDRIVE
+    verify_folder_drive  $MOUNT_PATH_DRIVE
+    create_script_drive  $SCRIPT_PATH_DRIVE
+    printf "el servicio es %s" "$SERVICE_PATH_RCLONE_DRIVE"
+    create_service_drive $SERVICE_PATH_RCLONE_DRIVE
     sleep 30
-    delete_script_onedrive
+    delete_script_drive
     delete_folder_drive
-}    
+    # delete_service_drive
+}   
 
 
 
