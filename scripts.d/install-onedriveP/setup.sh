@@ -15,7 +15,7 @@ NAME_SERVICE_RCLONE_DRIVE="$NAME_SCRIPT_DRIVE.service"
 SERVICE_PATH_RCLONE_DRIVE="/etc/systemd/system/$NAME_SERVICE_RCLONE_DRIVE"
 
 NAME_LOG_RCLONE_DRIVE="$NAME_SCRIPT_DRIVE.log"
-NAME_LOG_RCLONE_DRIVE="/var/log/$NAME_LOG_RCLONE_DRIVE"
+PATH_LOG_RCLONE_DRIVE="/var/log/$NAME_LOG_RCLONE_DRIVE"
 
 USER_NAME="$USER"
 SYSTEMD_USER="$USER"
@@ -103,7 +103,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 #Environment="USER_NAME=${USER}"
-ExecStart=/usr/local/bin/${SCRIPT_PATH_DRIVE}
+ExecStart=${SCRIPT_PATH_DRIVE}
 Restart=on-failure
 RemainAfterExit=true
 User=${USER}
