@@ -75,13 +75,13 @@ create_script_drive(){
         printf "${FMT_BLUE}Creando el script %s ya que no existe.${NC}\n" "$FILE_PATH"
         sudo bash -c "cat > $FILE_PATH" << EOF
 #!/bin/bash
-LOGFILE=${NAME_LOG_RCLONE_DRIVE}
-/usr/bin/rclone --vfs-cache-mode writes mount "${NAME_DRIVE_RCLONE}": ~/${NAME_DRIVE_FOLDER} &> ${NAME_LOG_RCLONE_DRIVE} &
+LOGFILE=${PATH_LOG_RCLONE_DRIVE}
+/usr/bin/rclone --vfs-cache-mode writes mount "${NAME_DRIVE_RCLONE}": ~/${NAME_DRIVE_FOLDER} &> ${PATH_LOG_RCLONE_DRIVE} &
 if [ \$? -eq 0 ]; then
     /usr/bin/notify-send "Microsoft OneDrive" "Microsoft OneDrive successfully mounted."
-    printf "${FMT_GREEN}Mounted successfully" >> "${NAME_LOG_RCLONE_DRIVE}"
+    printf "${FMT_GREEN}Mounted successfully" >> "${PATH_LOG_RCLONE_DRIVE}"
 else
-    printf "${FMT_RED}Failed to mount OneDrive" >> "${NAME_LOG_RCLONE_DRIVE}"
+    printf "${FMT_RED}Failed to mount OneDrive" >> "${PATH_LOG_RCLONE_DRIVE}"
 fi
 EOF
         sudo chmod +x "$FILE_PATH"
@@ -174,9 +174,6 @@ main(){
     create_script_drive  $SCRIPT_PATH_DRIVE
     printf "el servicio es %s" "$SERVICE_PATH_RCLONE_DRIVE"
     create_service_drive $SERVICE_PATH_RCLONE_DRIVE
-    sleep 30
-    delete_script_drive
-    delete_folder_drive
     # delete_service_drive
 }   
 
