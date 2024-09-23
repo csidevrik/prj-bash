@@ -22,18 +22,6 @@ SYSTEMD_USER="$USER"
 SYSTEMD_NAME_SERVICE="rclone-${NAME_DRIVE_RCLONE}"
 
 
-pack_neovim="neovim"
-pack_curl="curl"
-pack_git="git"
-pack_ncdu="ncdu"
-pack_zsh="zsh"
-pack_htop="htop"
-pack_screenfetch="screenfetch"
-pack_openssh="openssh-server"
-pack_openssl="openssl"
-pack_sqlite="sqlite"
-
-
 # Colores de formato
 FMT_RESET=$(tput sgr0)
 FMT_BOLD=$(tput bold)
