@@ -40,8 +40,9 @@ FMT_BOLD=$(tput bold)
 FMT_RED=$(tput setaf 1)
 FMT_GREEN=$(tput setaf 2)
 FMT_YELLOW=$(tput setaf 3)
-FMT_PURPLE=$(tput setaf 5)
 FMT_BLUE=$(tput setaf 4)
+FMT_PURPLE=$(tput setaf 5)
+
 
 
 # ==================================================================================================
