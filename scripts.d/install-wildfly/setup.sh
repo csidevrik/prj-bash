@@ -1,6 +1,9 @@
 #!/bin/sh
 
 #Variables
+packages_ubuntu=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
+packages_fedora=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
+
 NAME_DRIVE_RCLONE=OneDriveP
 NAME_DRIVE_FOLDER=OneDriveP
 MOUNT_PATH_DRIVE="$HOME/$NAME_DRIVE_FOLDER"
@@ -19,25 +22,50 @@ SYSTEMD_USER="$USER"
 SYSTEMD_NAME_SERVICE="rclone-${NAME_DRIVE_RCLONE}"
 
 
-<<<<<<< HEAD
+pack_neovim="neovim"
+pack_curl="curl"
+pack_git="git"
+pack_ncdu="ncdu"
+pack_zsh="zsh"
+pack_htop="htop"
+pack_screenfetch="screenfetch"
+pack_openssh="openssh-server"
+pack_openssl="openssl"
+pack_sqlite="sqlite"
 
 
-=======
->>>>>>> 65fa2b968e2dd9947b8c63371ceeedd2a5f7a156
 # Colores de formato
 FMT_RESET=$(tput sgr0)
 FMT_BOLD=$(tput bold)
 FMT_RED=$(tput setaf 1)
 FMT_GREEN=$(tput setaf 2)
 FMT_YELLOW=$(tput setaf 3)
-FMT_BLUE=$(tput setaf 4)
 FMT_PURPLE=$(tput setaf 5)
-
+FMT_BLUE=$(tput setaf 4)
 
 
 # ==================================================================================================
 # FUNCTION SPACE
 # ==================================================================================================
+
+# Función para imprimir mensajes de éxito
+print_success() {
+  printf '\n%s%s%s\n' "${FMT_GREEN}${FMT_BOLD}" "¡Instalación exitosa!" "${FMT_RESET}"
+  printf '%sAhora tienes instalados los siguientes paquetes:\n' "${FMT_YELLOW}"
+  printf '%s\n' "${packages_ubuntu[@]}"  # Si es Ubuntu, muestra los paquetes
+  printf '%s\n' "${packages_fedora[@]}"  # Si es Fedora, muestra los paquetes
+  printf '%s\n' "${FMT_RESET}"
+  printf '%sEjecuta "zsh" para probar tu nuevo shell.\n' "${FMT_YELLOW}"
+  printf '%sSi prefieres mantener tu shell actual, reinicia tu sesión para aplicar los cambios.\n' "${FMT_YELLOW}"
+  printf '%s¡Disfruta de tu nueva configuración de shell!\n' "${FMT_RESET}"
+}
+
+# Función para instalar repositorios de RPM Fusion en Fedora
+install_rpmfusion_repos() {
+    local version=$1
+    sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$version.noarch.rpm"
+    sudo dnf install -y "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$version.noarch.rpm"
+}
 
 # Función para verificar si un folder existe o no en linux leyendo el primer parametro pasado, por el momento 
 # esta funcion usa las variables globales ya haremos una especifica para leer todos los argumentos.
@@ -144,13 +172,8 @@ main(){
 
     verify_folder_drive  $MOUNT_PATH_DRIVE
     create_script_drive  $SCRIPT_PATH_DRIVE
+    printf "el servicio es %s" "$SERVICE_PATH_RCLONE_DRIVE"
     create_service_drive $SERVICE_PATH_RCLONE_DRIVE
-<<<<<<< HEAD
-    # sleep 30
-    # delete_script_drive
-    # delete_folder_drive
-=======
->>>>>>> 65fa2b968e2dd9947b8c63371ceeedd2a5f7a156
     # delete_service_drive
 }   
 
