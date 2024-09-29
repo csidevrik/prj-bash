@@ -19,11 +19,8 @@ SYSTEMD_USER="$USER"
 SYSTEMD_NAME_SERVICE="rclone-${NAME_DRIVE_RCLONE}"
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 65fa2b968e2dd9947b8c63371ceeedd2a5f7a156
 # Colores de formato
 FMT_RESET=$(tput sgr0)
 FMT_BOLD=$(tput bold)
@@ -145,12 +142,9 @@ main(){
     verify_folder_drive  $MOUNT_PATH_DRIVE
     create_script_drive  $SCRIPT_PATH_DRIVE
     create_service_drive $SERVICE_PATH_RCLONE_DRIVE
-<<<<<<< HEAD
     # sleep 30
     # delete_script_drive
     # delete_folder_drive
-=======
->>>>>>> 65fa2b968e2dd9947b8c63371ceeedd2a5f7a156
     # delete_service_drive
 }   
 
