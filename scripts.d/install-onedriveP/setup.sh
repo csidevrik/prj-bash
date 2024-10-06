@@ -1,13 +1,9 @@
 #!/bin/sh
 
-<<<<<<< HEAD
 # ==================================================================================================
 # VARIABLE SPACE
 # ==================================================================================================
 
-=======
-#Variables
->>>>>>> 0a758e60defaf48ac2e06305086a474ceb020024
 NAME_DRIVE_RCLONE=OneDriveP
 NAME_DRIVE_FOLDER=OneDriveP
 MOUNT_PATH_DRIVE="$HOME/$NAME_DRIVE_FOLDER"
@@ -43,7 +39,6 @@ FMT_PURPLE=$(tput setaf 5)
 # FUNCTION SPACE
 # ==================================================================================================
 
-<<<<<<< HEAD
 # Función para imprimir mensajes de éxito
 print_success() {
   printf '\n%s%s%s\n' "${FMT_GREEN}${FMT_BOLD}" "¡Instalación exitosa!" "${FMT_RESET}"
@@ -56,8 +51,6 @@ print_success() {
   printf '%s¡Disfruta de tu nueva configuración de shell!\n' "${FMT_RESET}"
 }
 
-=======
->>>>>>> 0a758e60defaf48ac2e06305086a474ceb020024
 # Función para verificar si un folder existe o no en linux leyendo el primer parametro pasado, por el momento 
 # esta funcion usa las variables globales ya haremos una especifica para leer todos los argumentos.
 create_script_drive(){

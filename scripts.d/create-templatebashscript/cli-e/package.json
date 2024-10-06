@@ -1,0 +1,14 @@
+{
+  "name": "cli-e",
+  "version": "1.0.0",
+  "description": "template bash script creator",
+  "main": "bin/index.js",
+  "dependencies": {
+    "@clack/prompts": "^0.7.0"
+  },
+  "bin": {
+    "tbs": "./bin/index.js"
+  },
+  "author": "carlos sigua",
+  "license": "MIT"
+}
