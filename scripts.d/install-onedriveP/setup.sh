@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#Variables
-packages_ubuntu=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
-packages_fedora=("neovim" "curl" "git" "ncdu" "zsh" "htop" "screenfetch" "openssh-server" "openssl" "sqlite")
+# ==================================================================================================
+# VARIABLE SPACE
+# ==================================================================================================
 
 NAME_DRIVE_RCLONE=OneDriveP
 NAME_DRIVE_FOLDER=OneDriveP
@@ -47,13 +47,6 @@ print_success() {
   printf '%sEjecuta "zsh" para probar tu nuevo shell.\n' "${FMT_YELLOW}"
   printf '%sSi prefieres mantener tu shell actual, reinicia tu sesión para aplicar los cambios.\n' "${FMT_YELLOW}"
   printf '%s¡Disfruta de tu nueva configuración de shell!\n' "${FMT_RESET}"
-}
-
-# Función para instalar repositorios de RPM Fusion en Fedora
-install_rpmfusion_repos() {
-    local version=$1
-    sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$version.noarch.rpm"
-    sudo dnf install -y "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$version.noarch.rpm"
 }
 
 # Función para verificar si un folder existe o no en linux leyendo el primer parametro pasado, por el momento 
@@ -165,8 +158,6 @@ main(){
     create_service_drive $SERVICE_PATH_RCLONE_DRIVE
     # delete_service_drive
 }   
-
-
 
 # **************************************************************************************************
 # MAIN CALL
