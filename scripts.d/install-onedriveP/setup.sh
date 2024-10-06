@@ -1,9 +1,13 @@
 #!/bin/sh
 
+<<<<<<< HEAD
 # ==================================================================================================
 # VARIABLE SPACE
 # ==================================================================================================
 
+=======
+#Variables
+>>>>>>> 0a758e60defaf48ac2e06305086a474ceb020024
 NAME_DRIVE_RCLONE=OneDriveP
 NAME_DRIVE_FOLDER=OneDriveP
 MOUNT_PATH_DRIVE="$HOME/$NAME_DRIVE_FOLDER"
@@ -22,6 +26,8 @@ SYSTEMD_USER="$USER"
 SYSTEMD_NAME_SERVICE="rclone-${NAME_DRIVE_RCLONE}"
 
 
+
+
 # Colores de formato
 FMT_RESET=$(tput sgr0)
 FMT_BOLD=$(tput bold)
@@ -37,6 +43,7 @@ FMT_PURPLE=$(tput setaf 5)
 # FUNCTION SPACE
 # ==================================================================================================
 
+<<<<<<< HEAD
 # Función para imprimir mensajes de éxito
 print_success() {
   printf '\n%s%s%s\n' "${FMT_GREEN}${FMT_BOLD}" "¡Instalación exitosa!" "${FMT_RESET}"
@@ -49,6 +56,8 @@ print_success() {
   printf '%s¡Disfruta de tu nueva configuración de shell!\n' "${FMT_RESET}"
 }
 
+=======
+>>>>>>> 0a758e60defaf48ac2e06305086a474ceb020024
 # Función para verificar si un folder existe o no en linux leyendo el primer parametro pasado, por el momento 
 # esta funcion usa las variables globales ya haremos una especifica para leer todos los argumentos.
 create_script_drive(){
@@ -154,8 +163,10 @@ main(){
 
     verify_folder_drive  $MOUNT_PATH_DRIVE
     create_script_drive  $SCRIPT_PATH_DRIVE
-    printf "el servicio es %s" "$SERVICE_PATH_RCLONE_DRIVE"
     create_service_drive $SERVICE_PATH_RCLONE_DRIVE
+    # sleep 30
+    # delete_script_drive
+    # delete_folder_drive
     # delete_service_drive
 }   
 
