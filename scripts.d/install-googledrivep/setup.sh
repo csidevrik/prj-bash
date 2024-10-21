@@ -57,10 +57,10 @@ create_script_drive(){
 LOGFILE=${PATH_LOG_RCLONE_DRIVE}
 /usr/bin/rclone --vfs-cache-mode writes mount "${NAME_DRIVE_RCLONE}": ~/${NAME_DRIVE_FOLDER} &> ${PATH_LOG_RCLONE_DRIVE} &
 if [ \$? -eq 0 ]; then
-    /usr/bin/notify-send "Microsoft OneDrive" "Microsoft OneDrive successfully mounted."
+    /usr/bin/notify-send "Google Drive" "Google Drive successfully mounted."
     printf "${FMT_GREEN}Mounted successfully" >> "${PATH_LOG_RCLONE_DRIVE}"
 else
-    printf "${FMT_RED}Failed to mount OneDrive" >> "${PATH_LOG_RCLONE_DRIVE}"
+    printf "${FMT_RED}Failed to mount Google Drive" >> "${PATH_LOG_RCLONE_DRIVE}"
 fi
 EOF
         sudo chmod +x "$FILE_PATH"
@@ -95,7 +95,7 @@ EOF
     fi
 }
 
-# Función para eliminar el script de OneDrive
+# Función para eliminar el script de Google Drive
 delete_service_drive(){
     if [ -f "$SERVICE_PATH_RCLONE_DRIVE" ]; then
         sudo rm -f "$SERVICE_PATH_RCLONE_DRIVE"
@@ -106,7 +106,7 @@ delete_service_drive(){
 }
 
 
-# Función para eliminar el script de OneDrive
+# Función para eliminar el script de Google Drive
 delete_script_drive(){
     if [ -f "$SCRIPT_PATH_DRIVE" ]; then
         sudo rm -f "$SCRIPT_PATH_DRIVE"

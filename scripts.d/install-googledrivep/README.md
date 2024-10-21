@@ -1,14 +1,4 @@
-# Mount OneDrive Personal on linux
-
-## Create a Directory for OneDrive
-
-We need to create a directory called in our case OneDriveP the path specific is
-
-```
-mkdir ~/OneDriveP
-```
-
-Esto lo hacemos como el usuario que este activo por eso usamos la virgulilla
+# Mount Google Drive Personal on linux
 
 ## Install rclone
 
@@ -33,14 +23,33 @@ Para eso seguiremos los siguientes pasos.
 
 ## Configure rclone
 
-Aqui encontraremos una guia simplificada y con graficos
+Revisa los siguientes tutoriales de como enlazar o montar googledrive usando rclone, analizalos y adaptalos para tu necesidad.
 
-> https://itsfoss.com/use-onedrive-linux-rclone/
+> **[Guia oficial de rclone](https://rclone.org/drive/)**
+>
+> [Tutorial mas explicado](https://www.jaumeferre.net/single_post.php?post-alias=sincronizar-google-drive-con-rclone)
 
-Aunque trataremos de hacer la nuestra.
+## Create a Directory for OneDrive
 
+We need to create a root directory for mount GoogleDriveP
 
-## Setup Script Bash
+```
+mkdir ~/GoogleDriveP
+```
+
+The last command is using a user.
+
+## Create a log file for the service
+
+Create a log file named as rc-GoogleDriveP.log on directory /var/log and this file is owned by the user actual.
+
+sudo touch /var/log/rc-GoogleDriveP.log
+
+sudo chown user:user /var/log/rc-GoogleDriveP.log
+
+**Note:** Tomar muy en cuenta que user es el usuario actual de la terminal y ***debes de reemplazarlo por tu usuario.***
+
+## Setup Script Bash online
 
 We write a code to mount a OneDrive volumen
 
@@ -95,17 +104,5 @@ RemainAfterExit=true
 User=adminos[Install]
 WantedBy=default.target
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 End tutorial
