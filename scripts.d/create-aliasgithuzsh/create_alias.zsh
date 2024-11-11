@@ -6,7 +6,7 @@ typeset -A directory_names
 # Folder repo
 GITFOLDER="github"
 # Directorio base
-BASEDIR="/home/adminos/dev/$GITFOLDER"
+BASEDIR="/home/$USER/dev/$GITFOLDER"
 # Obtener la lista de carpetas existentes
 EXISTING_FOLDERS=($BASEDIR/*(/:t))
 
