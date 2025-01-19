@@ -12,6 +12,7 @@
   "author": "carlos sigua",
   "license": "MIT",
   "dependencies": {
+    "tbs": "file:",
     "yargs": "^17.7.2"
   }
 }

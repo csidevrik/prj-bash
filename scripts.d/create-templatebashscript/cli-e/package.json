@@ -4,7 +4,8 @@
   "description": "template bash script creator",
   "main": "bin/index.js",
   "dependencies": {
-    "@clack/prompts": "^0.7.0"
+    "@clack/prompts": "^0.7.0",
+    "cli-e": "file:"
   },
   "bin": {
     "tbs": "./bin/index.js"
