@@ -197,8 +197,8 @@ module.exports = {
         'tab:new': 'ctrl+shift+t',
         'tab:next': 'ctrl+shift+right',
         'tab:prev': 'ctrl+shift+left',
-        'pane:splitVertical': 'ctrl+shift+d',
-        'pane:splitHorizontal': 'ctrl+shift+shift+d',
+        'pane:splitVertical': 'ctrl+shift+D',
+        'pane:splitHorizontal': 'ctrl+shift+E',
         'window:devtools': 'f12',
     },
 };
