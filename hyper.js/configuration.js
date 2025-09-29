@@ -12,7 +12,7 @@ module.exports = {
         fontSize: 14, // Aumenté ligeramente para mejor legibilidad
         
         // font family with optional fallbacks
-        fontFamily: '"MesloLGS NF", "Fira Code", "JetBrains Mono", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+        fontFamily: '"MesloLGS NF", "FiraCode Nerd Font", "JetBrains Mono", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
         
         // default font weight: 'normal' or 'bold'
         fontWeight: 'normal',
