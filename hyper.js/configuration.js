@@ -7,149 +7,198 @@ module.exports = {
         // choose either `'stable'` for receiving highly polished,
         // or `'canary'` for less polished but more frequent updates
         updateChannel: 'stable',
+        
         // default font size in pixels for all tabs
-        fontSize: 12,
+        fontSize: 14, // Aumenté ligeramente para mejor legibilidad
+        
         // font family with optional fallbacks
-        fontFamily: '"MesloLGS NF", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+        fontFamily: '"MesloLGS NF", "FiraCode Nerd Font", "JetBrains Mono", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+        
         // default font weight: 'normal' or 'bold'
         fontWeight: 'normal',
         // font weight for bold characters: 'normal' or 'bold'
         fontWeightBold: 'bold',
+        
         // line height as a relative unit
-        lineHeight: 1,
+        lineHeight: 1.2, // Mejoré el espaciado entre líneas
+        
         // letter spacing as a relative unit
         letterSpacing: 0,
+        
         // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-        cursorColor: 'rgba(248,28,229,0.8)',
+        cursorColor: 'rgba(0, 255, 136, 0.8)', // Verde más visible
+        
         // terminal text color under BLOCK cursor
         cursorAccentColor: '#000',
+        
         // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
         cursorShape: 'BLOCK',
+        
         // set to `true` (without backticks and without quotes) for blinking cursor
-        cursorBlink: false,
+        cursorBlink: true, // Habilitado para mejor visibilidad
+        
         // color of the text
-        foregroundColor: '#fff',
+        foregroundColor: '#E0E6ED', // Color de texto más suave
+        
         // terminal background color
-        // opacity is only supported on macOS
-        backgroundColor: '#263238',
+        backgroundColor: '#1E1E2E', // Fondo más moderno
+        
         // terminal selection color
-        selectionColor: 'rgba(248,28,229,0.3)',
+        selectionColor: 'rgba(116, 199, 236, 0.3)',
+        
         // border color (window, tabs)
-        borderColor: '#333',
+        borderColor: '#45475A', // Borde más visible
+        
         // custom CSS to embed in the main window
-        css: '',
+        css: `
+            /* Mejorar la visibilidad de las pestañas */
+            .tab_tab {
+                border: 1px solid #45475A !important;
+                border-bottom: none !important;
+                margin-right: 2px;
+            }
+            
+            /* Pestaña activa con mejor contraste */
+            .tab_active {
+                background: linear-gradient(45deg, #74C7EC, #89B4FA) !important;
+                color: #1E1E2E !important;
+                font-weight: bold !important;
+                border-color: #74C7EC !important;
+                box-shadow: 0 0 10px rgba(116, 199, 236, 0.5) !important;
+            }
+            
+            /* Pestañas inactivas con hover effect */
+            .tab_tab:not(.tab_active) {
+                background: #313244 !important;
+                color: #CDD6F4 !important;
+                transition: all 0.3s ease;
+            }
+            
+            .tab_tab:not(.tab_active):hover {
+                background: #45475A !important;
+                color: #F5E0DC !important;
+                transform: translateY(-1px);
+            }
+            
+            /* Mejorar el texto de las pestañas */
+            .tab_text {
+                padding: 0 12px !important;
+            }
+            
+            /* Barra de pestañas */
+            .tabs_nav {
+                background: #1E1E2E !important;
+                border-bottom: 2px solid #45475A !important;
+            }
+            
+            /* Terminal con esquinas redondeadas */
+            .term_term {
+                border-radius: 8px !important;
+            }
+            
+            /* Scrollbar personalizada */
+            .term_term::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            .term_term::-webkit-scrollbar-track {
+                background: #1E1E2E;
+            }
+            
+            .term_term::-webkit-scrollbar-thumb {
+                background: #45475A;
+                border-radius: 4px;
+            }
+            
+            .term_term::-webkit-scrollbar-thumb:hover {
+                background: #74C7EC;
+            }
+        `,
+        
         // custom CSS to embed in the terminal window
-        termCSS: '',
+        termCSS: `
+            x-screen a {
+                color: #74C7EC !important;
+                text-decoration: underline;
+            }
+            
+            x-screen a:hover {
+                color: #89B4FA !important;
+            }
+        `,
+        
         // set custom startup directory (must be an absolute path)
         workingDirectory: '',
+        
         // if you're using a Linux setup which show native menus, set to false
-        // default: `true` on Linux, `true` on Windows, ignored on macOS
         showHamburgerMenu: '',
-        // set to `false` (without backticks and without quotes) if you want to hide the minimize, maximize and close buttons
-        // additionally, set to `'left'` if you want them on the left, like in Ubuntu
-        // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
+        
+        // set to `false` if you want to hide window controls
         showWindowControls: '',
+        
         // custom padding (CSS format, i.e.: `top right bottom left`)
-        padding: '12px 14px',
-        // the full list. if you're going to provide the full color palette,
-        // including the 6 x 6 color cubes and the grayscale map, just provide
-        // an array here instead of a color map object
+        padding: '16px 20px', // Más padding para mejor apariencia
+        
+        // Colores mejorados con esquema Catppuccin
         colors: {
-            black: '#000000',
-            red: '#C51E14',
-            green: '#1DC121',
-            yellow: '#C7C329',
-            blue: '#0A2FC4',
-            magenta: '#C839C5',
-            cyan: '#20C5C6',
-            white: '#C7C7C7',
-            lightBlack: '#686868',
-            lightRed: '#FD6F6B',
-            lightGreen: '#67F86F',
-            lightYellow: '#FFFA72',
-            lightBlue: '#6A76FB',
-            lightMagenta: '#FD7CFC',
-            lightCyan: '#68FDFE',
-            lightWhite: '#FFFFFF',
-            limeGreen: '#32CD32',
-            lightCoral: '#F08080',
+            black: '#1E1E2E',
+            red: '#F38BA8',
+            green: '#A6E3A1',
+            yellow: '#F9E2AF',
+            blue: '#89B4FA',
+            magenta: '#CBA6F7',
+            cyan: '#94E2D5',
+            white: '#CDD6F4',
+            lightBlack: '#45475A',
+            lightRed: '#F38BA8',
+            lightGreen: '#A6E3A1',
+            lightYellow: '#F9E2AF',
+            lightBlue: '#89B4FA',
+            lightMagenta: '#CBA6F7',
+            lightCyan: '#94E2D5',
+            lightWhite: '#F5E0DC',
+            // Colores adicionales
+            limeGreen: '#A6E3A1',
+            lightCoral: '#F38BA8',
         },
-        // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
-        // if left empty, your system's login shell will be used by default
-        //
-        // Windows
-        // - Make sure to use a full path if the binary name doesn't work
-        // - Remove `--login` in shellArgs
-        //
-        // Windows Subsystem for Linux (WSL) - previously Bash on Windows
-        // - Example: `C:\\Windows\\System32\\wsl.exe`
-        //
-        // Git-bash on Windows
-        // - Example: `C:\\Program Files\\Git\\bin\\bash.exe`
-        //
-        // PowerShell on Windows
-        // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-        //
-        // Cygwin
-        // - Example: `C:\\cygwin64\\bin\\bash.exe`
+        
         shell: '',
-        // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
-        // by default `['--login']` will be used
         shellArgs: ['--login'],
-        // for environment variables
         env: {},
-        // Supported Options:
-        //  1. 'SOUND' -> Enables the bell as a sound
-        //  2. false: turns off the bell
+        
         bell: 'SOUND',
-        // An absolute file path to a sound file on the machine.
-        // bellSoundURL: '/path/to/sound/file',
-        // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
         copyOnSelect: false,
-        // if `true` (without backticks and without quotes), hyper will be set as the default protocol client for SSH
         defaultSSHApp: true,
-        // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
-        // selection is present (`true` by default on Windows and disables the context menu feature)
         quickEdit: false,
-        // choose either `'vertical'`, if you want the column mode when Option key is hold during selection (Default)
-        // or `'force'`, if you want to force selection regardless of whether the terminal is in mouse events mode
-        // (inside tmux or vim with mouse mode enabled for example).
         macOptionSelectionMode: 'vertical',
-        // Whether to use the WebGL renderer. Set it to false to use canvas-based
-        // rendering (slower, but supports transparent backgrounds)
         webGLRenderer: true,
-        // keypress required for weblink activation: [ctrl|alt|meta|shift]
-        // todo: does not pick up config changes automatically, need to restart terminal :/
         webLinksActivationKey: '',
-        // if `false` (without backticks and without quotes), Hyper will use ligatures provided by some fonts
-        disableLigatures: true,
-        // set to true to disable auto updates
+        disableLigatures: false, // Habilitadas para mejor tipografía
         disableAutoUpdates: false,
-        // set to true to enable screen reading apps (like NVDA) to read the contents of the terminal
         screenReaderMode: false,
-        // set to true to preserve working directory when creating splits or tabs
         preserveCWD: true,
-        // for advanced config flags please refer to https://hyper.is/#cfg
     },
-    // a list of plugins to fetch and install from npm
-    // format: [@org/]project[#version]
-    // examples:
-    //   `hyperpower`
-    //   `@company/project`
-    //   `project#1.0.1`
+    
+    // Lista mejorada de plugins
     plugins: [
         "hyper-broadcast",
         "hyper-tab-icons",
         "hyper-highlight-active-pane",
-        "hyper-active-tab"
+        "hyper-active-tab",
+        "hyper-statusline", // Añade una barra de estado
+        "hyper-search", // Búsqueda en terminal
+        "hyperterm-visor", // Terminal flotante estilo Quake
     ],
-    // in development, you can create a directory under
-    // `~/.hyper_plugins/local/` and include it here
-    // to load it and avoid it being `npm install`ed
+    
     localPlugins: [],
+    
     keymaps: {
-    // Example
-    // 'window:devtools': 'cmd+alt+o',
+        // Atajos de teclado útiles
+        'tab:new': 'ctrl+shift+t',
+        'tab:next': 'ctrl+shift+right',
+        'tab:prev': 'ctrl+shift+left',
+        'pane:splitVertical': 'ctrl+shift+D',
+        'pane:splitHorizontal': 'ctrl+shift+E',
+        'window:devtools': 'f12',
     },
 };
-//# sourceMappingURL=config-default.js.map
