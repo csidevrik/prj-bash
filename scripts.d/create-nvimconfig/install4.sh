@@ -508,7 +508,8 @@ print_message "Instalando gopls (Go Language Server)..."
 if command -v gopls &> /dev/null; then
     print_success "gopls ya está instalado"
 else
-    go install golang.org/x/tools/gopls@latest
+    # go install golang.org/x/tools/gopls@latest
+    go install golang.org/x/tools/gopls@v0.20.0
     print_success "gopls instalado"
 fi
 
