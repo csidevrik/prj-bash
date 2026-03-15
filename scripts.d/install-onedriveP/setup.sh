@@ -100,6 +100,56 @@ EOF
     fi
 }
 
+# Función para crear el archivo de log si no existe
+create_log_drive(){
+    if [ ! -f "$PATH_LOG_RCLONE_DRIVE" ]; then
+        sudo touch "$PATH_LOG_RCLONE_DRIVE"
+        sudo chown "$USER_NAME":"$USER_NAME" "$PATH_LOG_RCLONE_DRIVE"
+        sudo chmod 664 "$PATH_LOG_RCLONE_DRIVE"
+        printf "${FMT_GREEN}Archivo de log creado: %s${FMT_RESET}\n" "$PATH_LOG_RCLONE_DRIVE"
+    else
+        printf "${FMT_BLUE}El archivo de log ya existe: %s${FMT_RESET}\n" "$PATH_LOG_RCLONE_DRIVE"
+    fi
+}
+
+
+
+# Función para desmontar el drive
+# unmount_drive(){
+#     if mountpoint -q "$MOUNT_PATH_DRIVE"; then
+#         fusermount -u "$MOUNT_PATH_DRIVE"
+#         if [ $? -eq 0 ]; then
+#             printf "${FMT_GREEN}Drive desmontado: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
+#         else
+#             printf "${FMT_RED}Error al desmontar. Intentando forzar...${FMT_RESET}\n"
+#             fusermount -uz "$MOUNT_PATH_DRIVE"
+#         fi
+#     else
+#         printf "${FMT_YELLOW}El drive no está montado: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
+#     fi
+# }
+unmount_drive(){
+    # Paso 1: matar el proceso rclone que tiene el mount
+    if pgrep -f "rclone.*${NAME_DRIVE_RCLONE}" > /dev/null; then
+        pkill -f "rclone.*${NAME_DRIVE_RCLONE}"
+        sleep 1  # darle tiempo a que libere
+        printf "${FMT_YELLOW}Proceso rclone terminado.${FMT_RESET}\n"
+    fi
+
+    # Paso 2: desmontar
+    if mountpoint -q "$MOUNT_PATH_DRIVE"; then
+        fusermount -u "$MOUNT_PATH_DRIVE"
+        if [ $? -eq 0 ]; then
+            printf "${FMT_GREEN}Drive desmontado: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
+        else
+            printf "${FMT_RED}Error al desmontar. Intentando forzar...${FMT_RESET}\n"
+            fusermount -uz "$MOUNT_PATH_DRIVE"
+        fi
+    else
+        printf "${FMT_YELLOW}El drive no está montado: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
+    fi
+}
+
 # Función para eliminar el script de OneDrive
 delete_service_drive(){
     if [ -f "$SERVICE_PATH_RCLONE_DRIVE" ]; then
@@ -121,6 +171,14 @@ delete_script_drive(){
     fi
 }
 
+delete_log_drive(){
+    if [ -f "$PATH_LOG_RCLONE_DRIVE" ]; then
+        sudo rm -f "$PATH_LOG_RCLONE_DRIVE"
+        printf "${FMT_GREEN}Log eliminado: %s${FMT_RESET}\n" "$PATH_LOG_RCLONE_DRIVE"
+    else
+        printf "${FMT_RED}El log no existe: %s${FMT_RESET}\n" "$PATH_LOG_RCLONE_DRIVE"
+    fi
+}
 
 verify_folder_drive(){
     DIR_PATH="$1"
@@ -139,33 +197,114 @@ verify_folder_drive(){
     fi
 }
 
+
 # Función para eliminar el directorio de montaje
 delete_folder_drive(){
+    unmount_drive   # <- desmontar antes de borrar
     if [ -d "$MOUNT_PATH_DRIVE" ]; then
         sudo rm -rf "$MOUNT_PATH_DRIVE"
-        printf "${FMT_GREEN}Directorio eliminado: %s${NC}\n" "$MOUNT_PATH_DRIVE"
+        printf "${FMT_GREEN}Directorio eliminado: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
     else
-        printf "${FMT_RED}El directorio no existe: %s${NC}\n" "$MOUNT_PATH_DRIVE"
+        printf "${FMT_RED}El directorio no existe: %s${FMT_RESET}\n" "$MOUNT_PATH_DRIVE"
     fi
 }
 
 # ==================================================================================================
-# MAIN SPACE
+# MENU SPACE
 # ==================================================================================================
+
+print_header(){
+    clear
+    printf "\n"
+    printf "%s╔══════════════════════════════════════════════╗%s\n" "${FMT_BLUE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "%s║       rclone OneDrive Manager v1.0           ║%s\n" "${FMT_BLUE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "%s║       Drive: %-32s║%s\n" "${FMT_BLUE}${FMT_BOLD}" "${NAME_DRIVE_RCLONE}" "${FMT_RESET}"
+    printf "%s╚══════════════════════════════════════════════╝%s\n" "${FMT_BLUE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "\n"
+}
+
+print_status(){
+    # Estado visual de cada componente
+    local folder_status script_status service_status log_status
+
+    [ -d "$MOUNT_PATH_DRIVE" ]         && folder_status="${FMT_GREEN}✔ existe${FMT_RESET}" || folder_status="${FMT_RED}✘ no existe${FMT_RESET}"
+    [ -f "$SCRIPT_PATH_DRIVE" ]        && script_status="${FMT_GREEN}✔ existe${FMT_RESET}" || script_status="${FMT_RED}✘ no existe${FMT_RESET}"
+    [ -f "$SERVICE_PATH_RCLONE_DRIVE" ] && service_status="${FMT_GREEN}✔ existe${FMT_RESET}" || service_status="${FMT_RED}✘ no existe${FMT_RESET}"
+    [ -f "$PATH_LOG_RCLONE_DRIVE" ]    && log_status="${FMT_GREEN}✔ existe${FMT_RESET}"    || log_status="${FMT_RED}✘ no existe${FMT_RESET}"
+
+    printf "%s  Estado actual:%s\n" "${FMT_YELLOW}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %-20s %b\n" "Carpeta montaje:"  "$folder_status"
+    printf "  %-20s %b\n" "Drive montado:"    "$mount_status"
+    printf "  %-20s %b\n" "Script:"           "$script_status"
+    printf "  %-20s %b\n" "Servicio:"         "$service_status"
+    printf "  %-20s %b\n" "Log:"              "$log_status"
+    printf "\n"
+}
+
+print_menu(){
+    printf "%s  ── INSTALAR ──────────────────────────────%s\n" "${FMT_PURPLE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[1]%s Crear carpeta de montaje\n"   "${FMT_GREEN}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[2]%s Crear log\n"                  "${FMT_GREEN}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[3]%s Crear script\n"               "${FMT_GREEN}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[4]%s Crear servicio\n"             "${FMT_GREEN}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[5]%s Instalar todo\n"              "${FMT_GREEN}${FMT_BOLD}" "${FMT_RESET}"
+    printf "\n"
+    printf "%s  ── ELIMINAR ──────────────────────────────%s\n" "${FMT_PURPLE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[6]%s Eliminar carpeta de montaje\n" "${FMT_RED}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[7]%s Eliminar log\n"               "${FMT_RED}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[8]%s Eliminar script\n"            "${FMT_RED}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[9]%s Eliminar servicio\n"          "${FMT_RED}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[10]%s Eliminar todo\n"             "${FMT_RED}${FMT_BOLD}" "${FMT_RESET}"
+    printf "\n"
+    printf "%s  ── OTROS ─────────────────────────────────%s\n" "${FMT_PURPLE}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[11]%s Ver log en vivo\n"           "${FMT_YELLOW}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[12]%s Desmontar drive\n" "${FMT_YELLOW}${FMT_BOLD}" "${FMT_RESET}"
+    printf "  %s[0]%s  Salir\n"                     "${FMT_BOLD}" "${FMT_RESET}"
+    printf "\n"
+    printf "%s  Elige una opción: %s" "${FMT_YELLOW}${FMT_BOLD}" "${FMT_RESET}"
+}
+
+menu(){
+    while true; do
+        print_header
+        print_status
+        print_menu
+        read -r opcion
+        printf "\n"
+        case "$opcion" in
+            1)  verify_folder_drive "$MOUNT_PATH_DRIVE" ;;
+            2)  create_log_drive ;;
+            3)  create_script_drive "$SCRIPT_PATH_DRIVE" ;;
+            4)  create_service_drive "$SERVICE_PATH_RCLONE_DRIVE" ;;
+            5)  verify_folder_drive "$MOUNT_PATH_DRIVE"
+                create_log_drive
+                create_script_drive "$SCRIPT_PATH_DRIVE"
+                create_service_drive "$SERVICE_PATH_RCLONE_DRIVE" ;;
+            6)  delete_folder_drive ;;
+            7)  delete_log_drive ;;
+            8)  delete_script_drive ;;
+            9)  delete_service_drive ;;
+            10) delete_folder_drive
+                delete_log_drive
+                delete_script_drive
+                delete_service_drive ;;
+            11) tail -f "$PATH_LOG_RCLONE_DRIVE" ;;
+            12) unmount_drive ;;
+            0)  printf "%sSaliendo...%s\n\n" "${FMT_YELLOW}" "${FMT_RESET}"; break ;;
+            *)  printf "%sOpción inválida.%s\n" "${FMT_RED}" "${FMT_RESET}" ;;
+        esac
+        printf "\n%s  Presiona Enter para continuar...%s" "${FMT_YELLOW}" "${FMT_RESET}"
+        read -r
+    done
+}
+
+
+
+#LLamada a la funcion principal (main)
 main(){
-
-    verify_folder_drive  $MOUNT_PATH_DRIVE
-    create_script_drive  $SCRIPT_PATH_DRIVE
-    create_service_drive $SERVICE_PATH_RCLONE_DRIVE
-    # sleep 30
-    # delete_script_drive
-    # delete_folder_drive
-    # delete_service_drive
-}   
-
+    menu;
+}
 # **************************************************************************************************
 # MAIN CALL
 # **************************************************************************************************
-
-#LLamada a la funcion principal (main)
 main
