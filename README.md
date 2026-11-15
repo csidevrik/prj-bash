@@ -32,6 +32,15 @@ Tambien adjunto el script para ohmyzsh, es que sino tengo que estar ingresando a
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+### Setup testing on rocky linux
+Ahora hemos trabajado en un script nuevo para los servidores en linux, ahora voy a probar en rocky linux 10 para saber si funciona o no.
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/main/scripts.d/setup-utils/setup.sh)"
+```
+
+
+
+
 ### Install go
 Para conseguir mas velocidad al intervenir sobre un server necesito usar go sobre el server, hasta el momento he habilitado sobre ubuntu, creo que el script va a poder correr en cualquier linux ya lo voy a probar en vm de fedora, rocky, alma y ubuntu, sobre arch linux me faltaria pero de momento te comparto para que solo lo copies y pegues en tu terminal y tendras instalado una version de go sobre tu ubuntu segun tu version, revisa el folder del repo, aqui esta .
 
