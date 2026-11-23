@@ -49,8 +49,34 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/refs/he
 ```
 
 ### Create nvim config
-Script para desplegar automaticamente una configuracion de Neovim con lazy.nvim, LSP y soporte completo para Go (gopls, autoformato y comandos `:GoRun`, `:GoTest`, `:GoBuild`). Funciona sobre Fedora/RHEL (dnf) y Ubuntu/Debian (apt). Si ya tienes una configuracion en `~/.config/nvim`, el script hace un backup antes de reemplazarla.
+Scripts para desplegar automaticamente una configuracion de Neovim con lazy.nvim, LSP y soporte para programar en Go. Funcionan sobre Fedora/RHEL (dnf) y Ubuntu/Debian (apt). Si ya tienes una configuracion en `~/.config/nvim`, el script hace un backup antes de reemplazarla.
+
+Primero revisa tu version de Neovim con `nvim --version` y elige el script:
+
+| | install5.sh | install6.sh |
+|---|---|---|
+| Version de Neovim | anteriores a 0.11 | 0.11 o superior (si no, se detiene y recomienda install5.sh) |
+| Configuracion del LSP | `require('lspconfig')` (forma antigua, en 0.11 muestra aviso de obsoleto) | `vim.lsp.config()` + `vim.lsp.enable()` (API nativa de 0.11) |
+| nvim-treesitter | sin rama fijada (falla con el error `nvim-treesitter.configs not found`) | rama `master` fijada |
+| Mensajes "Press ENTER" al abrir | si, por `print()` en la configuracion | no |
+| Errores visibles junto al codigo | por defecto de Neovim | activados (`virtual_text`) |
+| Dependencias instaladas | neovim, git, golang | neovim, git, gcc, make, ripgrep, fd, curl, unzip, golang |
+| Plugins | catppuccin (y otros temas), nvim-tree, telescope, treesitter, nvim-cmp, lualine, autopairs, Comment.nvim, nvim-lspconfig | los mismos sin Comment.nvim (0.11 ya trae `gc`) + which-key + gitsigns |
+| Go | gopls, autoformato al guardar, `:GoRun` `:GoTest` `:GoBuild` `:GoTestFunc` | lo mismo |
+| Instala los plugins al final | no, lo hace al abrir nvim la primera vez | si (`Lazy! sync`) |
+| Formatear | `<Space>f` | `<Space>lf` |
+| Ejecutar con sudo | lo permite | lo bloquea, ejecutalo con tu usuario normal |
+
+Para Neovim 0.11 o superior:
+
+```shell
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/main/scripts.d/create-nvimconfig/install6.sh)"
+```
+
+Para versiones anteriores de Neovim:
 
 ```shell
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/main/scripts.d/create-nvimconfig/install5.sh)"
 ```
+
+Al terminar, recarga tu shell (`source ~/.zshrc` o abre una terminal nueva) para que Neovim encuentre `gopls`.
