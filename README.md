@@ -47,3 +47,10 @@ Para conseguir mas velocidad al intervenir sobre un server necesito usar go sobr
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/refs/heads/main/scripts.d/install-go/ubu/go1.25on20.04/install.sh)"
 ```
+
+### Create nvim config
+Script para desplegar automaticamente una configuracion de Neovim con lazy.nvim, LSP y soporte completo para Go (gopls, autoformato y comandos `:GoRun`, `:GoTest`, `:GoBuild`). Funciona sobre Fedora/RHEL (dnf) y Ubuntu/Debian (apt). Si ya tienes una configuracion en `~/.config/nvim`, el script hace un backup antes de reemplazarla.
+
+```shell
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/csidevrik/prj-bash/main/scripts.d/create-nvimconfig/install5.sh)"
+```
