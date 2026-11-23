@@ -70,7 +70,10 @@ detect_distro() {
     esac
 
     if [ "$PKG_MANAGER" = "dnf" ]; then
-        PKG_INSTALL="sudo dnf install -y"
+        # skip_if_unavailable: si un repositorio no responde (por ejemplo, bloqueado
+        # por el firewall de la empresa), dnf lo salta en vez de fallar
+        DNF_OPTS="--setopt=skip_if_unavailable=True"
+        PKG_INSTALL="sudo dnf install -y $DNF_OPTS"
     else
         PKG_INSTALL="sudo apt install -y"
     fi
@@ -84,7 +87,7 @@ print_message "Actualizando repositorios..."
 if [ "$PKG_MANAGER" = "apt" ]; then
     sudo apt update
 else
-    sudo dnf check-update || true   # devuelve 100 si hay actualizaciones, no es error
+    sudo dnf check-update $DNF_OPTS || true   # devuelve 100 si hay actualizaciones, no es error
 fi
 
 # ============================================
